@@ -1,0 +1,59 @@
+<main class="main">
+  <select
+    [(ngModel)]="selectedDeviceId"
+    placeholder="Select a device"
+    *ngIf="deviceList().length"
+  >
+    <option value="" disabled selected>Select a device</option>
+    <option *ngFor="let device of deviceList()" [value]="device.deviceId">
+      {{ device.label }}
+    </option>
+  </select>
+
+  <section>
+    <button (click)="liveStream ? stopStream() : startStream()">
+      {{ liveStream ? "Stop" : "Start" }} stream
+    </button>
+
+    <button
+      (click)="isRecording ? stopRecording() : startRecording()"
+      [disabled]="!liveStream"
+    >
+      {{ isRecording ? "Stop" : "Start" }} recording
+    </button>
+
+    <button [disabled]="!liveStream" (click)="takeSnapshot()">
+      Take snapshot
+    </button>
+  </section>
+
+  <video
+    *ngIf="liveStream"
+    #video
+    controls
+    muted
+    autoplay
+    playsinline
+    [srcObject]="liveStream"
+  ></video>
+  <canvas #canvas hidden></canvas>
+
+  <div *ngIf="records.length">
+    <div>Records:</div>
+    <section>
+      <video
+        *ngFor="let record of records"
+        [src]="record"
+        controls
+        muted
+      ></video>
+    </section>
+  </div>
+
+  <div *ngIf="snapshots.length">
+    <div>Snapshots:</div>
+    <section>
+      <img *ngFor="let snapshot of snapshots" [src]="snapshot" />
+    </section>
+  </div>
+</main>

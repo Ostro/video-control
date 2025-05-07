@@ -1,0 +1,16 @@
+video, img {
+    width: 35%;
+}
+
+main {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+}
+
+section {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;}
